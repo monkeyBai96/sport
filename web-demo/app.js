@@ -150,6 +150,7 @@ function goRecord(partKey, date) {
         ${formHtml}
       </div>
       <button class="btn-primary" onclick="saveRecord('${partKey}', '${date}')">保存</button>
+      <button class="btn-secondary" onclick="clearRecord('${partKey}')">清空</button>
       <button class="btn-secondary" onclick="goBack()">返回</button>
     </div>
   `
@@ -176,8 +177,15 @@ function saveRecord(partKey, date) {
   }
 
   setDayRecord(date, partKey, values)
-  alert('已保存')
   goBack()
+}
+
+function clearRecord(partKey) {
+  if (partKey === 'rehab') {
+    document.querySelectorAll('#main input[type="checkbox"]').forEach(el => el.checked = false)
+  } else {
+    document.querySelectorAll('#main input[type="number"]').forEach(el => el.value = '')
+  }
 }
 
 let backStack = []
