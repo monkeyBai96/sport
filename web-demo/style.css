@@ -1,0 +1,276 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+header {
+  text-align: center;
+  padding: 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.container {
+  padding: 12px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.part-row, .list-item, .detail-row, .switch-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.part-row:last-child, .list-item:last-child, .detail-row:last-child, .switch-row:last-child {
+  border-bottom: none;
+}
+
+.arrow {
+  color: #999;
+  font-size: 20px;
+}
+
+input[type="number"], input[type="text"] {
+  width: 80px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px;
+  font-size: 16px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  margin-top: 16px;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 24px;
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 日历 */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-btn {
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.month-title {
+  font-weight: bold;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  color: #666;
+  padding: 8px 0;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day-cell {
+  min-height: 72px;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 4px;
+  text-align: center;
+  cursor: pointer;
+  background: #fff;
+}
+
+.day-cell:nth-child(7n) {
+  border-right: none;
+}
+
+.day-cell.empty {
+  background: transparent;
+  border: none;
+}
+
+.day-num {
+  display: block;
+  font-size: 14px;
+}
+
+.marks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.mark {
+  font-size: 12px;
+  color: #666;
+  margin: 1px;
+}
+
+.mark.bold {
+  font-weight: bold;
+  color: #07c160;
+}
+
+/* 康复分组 */
+.group-title {
+  font-weight: bold;
+  margin: 12px 0 6px;
+}
+
+/* 个人页 */
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-btn {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.avatar-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  font-size: 13px;
+  color: #666;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-input {
+  flex: 1;
+  margin-left: 12px;
+  text-align: right;
+}
+
+/* 底部导航 */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+.tab-bar button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: #fff;
+  color: #999;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.tab-bar button.active {
+  color: #07c160;
+  font-weight: bold;
+}
+
+.empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 60px 0;
+}
+
+.part-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-value {
+  color: #07c160;
+  font-weight: bold;
+}

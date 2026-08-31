@@ -1,0 +1,9 @@
+{
+  "appId": "com.example.sportrecord",
+  "appName": "训练记录",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

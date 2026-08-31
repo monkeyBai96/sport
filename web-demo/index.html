@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#07c160">
+  <title>训练记录</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>训练记录</header>
+  <div id="app">
+    <main id="main"></main>
+    <nav class="tab-bar">
+      <button id="tab-training" onclick="renderTraining()">训练</button>
+      <button id="tab-calendar" onclick="renderCalendar()">日历</button>
+      <button id="tab-profile" onclick="renderProfile()">个人</button>
+    </nav>
+  </div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+    }
+  </script>
+</body>
+</html>
