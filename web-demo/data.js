@@ -40,7 +40,7 @@ const PARTS = [
     label: '腿',
     mark: 'T',
     items: [
-      { key: 'whole', label: '整体' },
+      { key: 'whole', label: '腿整体' },
       { key: 'quads', label: '股四' },
       { key: 'hamstrings', label: '腘绳肌' },
       { key: 'adductors', label: '内收肌' }
