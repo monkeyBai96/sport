@@ -31,7 +31,8 @@ const PARTS = [
       { key: 'horizontalRow', label: '水平划' },
       { key: 'highRow', label: '高位划' },
       { key: 'wideRow', label: '开肘划' },
-      { key: 'straightArm', label: '直臂下压' }
+      { key: 'straightArm', label: '直臂下压' },
+      { key: 'facePull', label: '面拉' }
     ]
   },
   {
@@ -110,6 +111,12 @@ const PARTS = [
         group: '腹',
         items: [
           { key: 'dead_bug', label: '死虫' }
+        ]
+      },
+      {
+        group: '足',
+        items: [
+          { key: 'foot_arch', label: '压脚背' }
         ]
       },
       {

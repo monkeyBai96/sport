@@ -260,11 +260,17 @@ function goDay(date) {
     if (!hasValues(records[p.key])) return
     const saved = records[p.key]
     if (p.key === 'rehab') {
-      const groups = p.groups.map(g => ({
-        group: g.group,
-        items: g.items.map(i => ({ ...i, done: saved[i.key] === true }))
-      }))
-      parts.push({ key: p.key, label: p.label, isRehab: true, groups })
+      const groups = p.groups
+        .map(g => {
+          const items = g.items
+            .filter(i => saved[i.key] === true)
+            .map(i => ({ ...i, done: true }))
+          return items.length ? { group: g.group, items } : null
+        })
+        .filter(Boolean)
+      if (groups.length) {
+        parts.push({ key: p.key, label: p.label, isRehab: true, groups })
+      }
     } else {
       const items = p.items.map(i => {
         const value = typeof saved[i.key] === 'number' ? saved[i.key] : 0
