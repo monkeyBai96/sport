@@ -66,9 +66,14 @@ header {
   border-bottom: none;
 }
 
+.part-row {
+  padding: 20px 0;
+  font-size: 20px;
+}
+
 .arrow {
   color: #999;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 input[type="number"], input[type="text"] {
