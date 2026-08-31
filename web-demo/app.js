@@ -84,12 +84,20 @@ let state = {
   month: new Date().getMonth() + 1
 }
 
+function setHeader(title, showBack) {
+  $('#header-title').textContent = title
+  const back = $('#header-back')
+  if (showBack) back.classList.add('show')
+  else back.classList.remove('show')
+}
+
 function renderTraining() {
+  backStack = []
   const html = `
     <div class="container">
       <div class="card">
         ${PARTS.map(p => `
-          <div class="part-row" data-key="${p.key}" onclick="goRecord('${p.key}')">
+          <div class="part-row" data-key="${p.key}" onclick="backStack.push(() => renderTraining()); goRecord('${p.key}')">
             <span>${p.label}</span>
             <span class="arrow">›</span>
           </div>
@@ -98,6 +106,7 @@ function renderTraining() {
     </div>
   `
   $('#main').innerHTML = html
+  setHeader('训练记录', false)
   setActiveTab('training')
 }
 
@@ -130,13 +139,13 @@ function goRecord(partKey, date) {
     formHtml = part.items.map(i => `
       <div class="list-item">
         <span class="label">${i.label} ${part.mark}</span>
-        <input type="number" min="0" data-key="${i.key}" value="${values[i.key]}">
+        <input type="number" min="0" data-key="${i.key}" value="${values[i.key] || ''}" placeholder="0">
       </div>
     `).join('')
   }
 
   const html = `
-    <div class="container">
+    <div class="container record-page">
       <div class="card">
         ${formHtml}
       </div>
@@ -145,6 +154,7 @@ function goRecord(partKey, date) {
     </div>
   `
   $('#main').innerHTML = html
+  setHeader(`训练记录 · ${part.label}`, true)
 }
 
 function saveRecord(partKey, date) {
@@ -219,6 +229,7 @@ function renderCalendar() {
     </div>
   `
   $('#main').innerHTML = html
+  setHeader('日历', false)
   setActiveTab('calendar')
 }
 
@@ -241,6 +252,7 @@ function nextMonth() {
 }
 
 function goDay(date) {
+  backStack.push(() => renderCalendar())
   const records = getDayRecords(date) || {}
   const parts = []
 
@@ -254,7 +266,10 @@ function goDay(date) {
       }))
       parts.push({ key: p.key, label: p.label, isRehab: true, groups })
     } else {
-      const items = p.items.map(i => ({ ...i, value: typeof saved[i.key] === 'number' ? saved[i.key] : 0 }))
+      const items = p.items.map(i => {
+        const value = typeof saved[i.key] === 'number' ? saved[i.key] : 0
+        return { ...i, value, show: value > 0 ? value : '—' }
+      })
       parts.push({ key: p.key, label: p.label, isRehab: false, items })
     }
   })
@@ -282,7 +297,7 @@ function goDay(date) {
               : p.items.map(i => `
                   <div class="detail-row">
                     <span>${i.label}</span>
-                    <span class="detail-value">${i.value}</span>
+                    <span class="detail-value">${i.show}</span>
                   </div>
                 `).join('')
             }
@@ -293,6 +308,7 @@ function goDay(date) {
     </div>
   `
   $('#main').innerHTML = html
+  setHeader(date, true)
 }
 
 function editDayPart(partKey, date) {
@@ -313,10 +329,6 @@ function renderProfile() {
           <input type="file" accept="image/*" style="display:none" onchange="updateAvatar(this)">
         </label>
         <div class="info-row">
-          <span>微信 ID</span>
-          <span style="font-weight:bold;">${user.openid || '—'}</span>
-        </div>
-        <div class="info-row">
           <span>设置 ID</span>
           <input type="text" class="info-input" value="${user.id || ''}"
             placeholder="请输入ID" onchange="updateId(this.value)">
@@ -326,6 +338,7 @@ function renderProfile() {
     </div>
   `
   $('#main').innerHTML = html
+  setHeader('个人', false)
   setActiveTab('profile')
 }
 
@@ -349,7 +362,7 @@ function updateId(value) {
 }
 
 function logout() {
-  if (!confirm('退出后将清除本地登录信息，确定吗？')) return
+  if (!confirm('退出后将重置 ID 和头像，训练记录会保留，确定吗？')) return
   clearUser()
   initUser()
   renderProfile()
@@ -363,6 +376,17 @@ function setActiveTab(name) {
 function init() {
   initUser()
   renderTraining()
+
+  // 适配安卓侧滑返回 / 系统返回键
+  if (window.Capacitor && window.Capacitor.Plugins.App) {
+    window.Capacitor.Plugins.App.addListener('backButton', () => {
+      if (backStack.length > 0) {
+        goBack()
+      } else {
+        window.Capacitor.Plugins.App.exitApp()
+      }
+    })
+  }
 }
 
 window.onload = init
